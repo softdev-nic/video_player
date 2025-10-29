@@ -1,0 +1,9 @@
+Package: simple-video-player
+Version: 1.0
+Section: video
+Priority: optional
+Architecture: amd64
+Depends: ffmpeg, libsdl2-2.0-0, libavcodec-extra, libgtk-3-0
+Maintainer: softdev-nic <softtechon.inc@gmail.com>
+Description: Lightweight FFmpeg + SDL2 video player
+ Simple and efficient video player written in C using FFmpeg, SDL2, and GTK.

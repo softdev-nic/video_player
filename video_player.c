@@ -10,22 +10,43 @@
 #define ERR(msg) do { fprintf(stderr, "%s\n", msg); exit(1); } while(0)
 
 // Simple GTK file chooser
-char* pick_file() {
+ char* pick_file() {
     gtk_init(0, NULL);
+
     GtkWidget *dialog = gtk_file_chooser_dialog_new("Open Video",
         NULL, GTK_FILE_CHOOSER_ACTION_OPEN,
         "_Cancel", GTK_RESPONSE_CANCEL,
         "_Open", GTK_RESPONSE_ACCEPT,
         NULL);
-    gtk_file_chooser_add_filter(GTK_FILE_CHOOSER(dialog), gtk_file_filter_new());
+
+    // Create a filter for video files
+    GtkFileFilter *filter = gtk_file_filter_new();
+    gtk_file_filter_set_name(filter, "Video Files");
+    gtk_file_filter_add_pattern(filter, "*.mp4");
+    gtk_file_filter_add_pattern(filter, "*.mkv");
+    gtk_file_filter_add_pattern(filter, "*.avi");
+    gtk_file_filter_add_pattern(filter, "*.mov");
+    gtk_file_filter_add_pattern(filter, "*.flv");
+    gtk_file_filter_add_pattern(filter, "*.wmv");
+    gtk_file_filter_add_pattern(filter, "*.webm");
+    gtk_file_chooser_add_filter(GTK_FILE_CHOOSER(dialog), filter);
+
+    // Add an "All Files" option
+    GtkFileFilter *all = gtk_file_filter_new();
+    gtk_file_filter_set_name(all, "All Files");
+    gtk_file_filter_add_pattern(all, "*");
+    gtk_file_chooser_add_filter(GTK_FILE_CHOOSER(dialog), all);
+
     char *filename = NULL;
     if (gtk_dialog_run(GTK_DIALOG(dialog)) == GTK_RESPONSE_ACCEPT) {
         filename = gtk_file_chooser_get_filename(GTK_FILE_CHOOSER(dialog));
     }
+
     gtk_widget_destroy(dialog);
     while (g_main_context_iteration(NULL, FALSE)); // process pending events
     return filename;
 }
+
 
 int main(int argc, char *argv[]) {
     const char *filename = NULL;

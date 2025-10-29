@@ -20,4 +20,4 @@ It supports MP4, MKV, AVI, and many other formats — all in a simple and minima
 
 ### 🧩 Option 1 — Install from `.deb` (recommended)
 
-Download the latest `.deb` from the [Releases](https://github.com/softdev-nic/video_player/releases/tag/v1.0) page:
+Download the latest `.deb` from the [Releases](https://github.com/softdev-nic/video_player/releases) page:
